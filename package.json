@@ -1,0 +1,35 @@
+{
+  "name": "my-new-project",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "dependencies": {
+    "@expo/samples": "2.1.1",
+    "babel-eslint": "^10.0.1",
+    "expo": "^30.0.2",
+    "react": "16.3.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-ui-kitten": "^3.1.2",
+    "react-navigation": "^2.18.2"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll",
+    "lint": "eslint sections/*.js screens/*.js",
+    "lint:fix": "eslint --fix sections/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-native": "^3.5.0",
+    "jest-expo": "30.0.0"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  }
+}
