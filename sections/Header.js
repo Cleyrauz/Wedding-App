@@ -74,22 +74,20 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
   headText: {
     textAlign: 'right',
-    color: '#ffffff',
+    color: '#777777',
     fontSize: 20,
     flex: 1
   },
   headStyle: {
-    paddingTop: 70,
-    paddingBottom: 45,
+    paddingTop: 50,
+    paddingBottom: 10,
     paddingRight: 40,
-    backgroundColor: '#6e8264',
+    backgroundColor: '#ffffff',
     flex: 1,
-    flexDirection: 'row',
-    borderBottomWidth: 2,
-    borderColor: '#000000'
+    flexDirection: 'row'
   },
   logoStyle: {
-    width: 150,
-    height: 85,
+    width: 100,
+    height: 60
   }
 });

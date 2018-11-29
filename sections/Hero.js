@@ -9,7 +9,7 @@ export default class Hero extends React.Component {
     return (
       <Image
         style={styles.heroImage}
-        source={ require ('../assets/images/image-app.jpg')}
+        source={ require ('../assets/images/wed-image.jpg')}
       />
     )
   }
