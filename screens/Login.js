@@ -25,8 +25,12 @@ import {
 import { FontAwesome } from '../assets/icons';
 import { GradientButton } from '../components/gradientButton';
 import { scaleModerate, scaleVertical } from '../utils/scale';
+import NavigationType from '../config/navigation/PropTypes';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
+  static propTypes = {
+  navigation: NavigationType.isRequired,
+};
   static navigationOptions = {
     header: null,
   };
@@ -34,14 +38,15 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ' ',
-      password: ' '
+      username: '',
+      password: '',
+      loading: false,
     };
   };
 
 getThemeImageSource = (theme) => (
   theme.name === 'light' ?
-    require('../../assets/images/backgroundLoginV1.png') : require('../../assets/images/backgroundLoginV1DarkTheme.png')
+    require('../assets/images/backgroundLoginV1.png') : require('../assets/images/backgroundLoginV1DarkTheme.png')
 );
 
 renderImage = () => {
@@ -63,14 +68,8 @@ renderImage = () => {
   };
 
   onSignUpButtonPressed = () => {
-    this.props.navigation.navigate('SignUp');
-  };
-
-  //
-
-  cancelLogin = ()=>{
     Alert.alert('Login cancelled!');
-    this.props.navigation.navigate('HomeRT');
+    this.props.navigation.navigate('RegisterRT');
   };
 
   displayMessage = ()=>{
@@ -133,98 +132,91 @@ renderImage = () => {
     }
   }
 
-  render() {
+render() {
+  if (this.state.loading) return <Text>Loading...</Text>;
     return (
-      <RkCard style={styles.container}>
-        <RkText style={styles.heading}>Login</RkText>
-
-        <RkTextInput
-          style={styles.inputs}
-          onChangeText={(text) => this.setState({username: text})}
-          value={this.state.username}
-        />
-        <RkText style={styles.label}>Enter Username</RkText>
-
-        <RkTextInput
-          style={styles.inputs}
-          onChangeText={(text) => this.setState({password: text})}
-          value={this.state.password}
-          secureTextEntry={true}
-        />
-        <RkText style={styles.label}>Enter Password</RkText>
-
-          <RkButton style = {styles.buttons} rkType='rounded' onPress={this.loginUser}>
-            Login
-          </RkButton>
-
-        <RkButton style = {styles.buttons} rkType='rounded' onPress={this.cancelLogin}>
-          Cancel
-        </RkButton>
-
-      </RkCard>
+      <RkAvoidKeyboard
+        onStartShouldSetResponder={() => true}
+        onResponderRelease={() => Keyboard.dismiss()}
+        style={styles.screen}
+      >
+        {this.renderImage()}
+        <View style={styles.container}>
+          <View style={styles.buttons}>
+            <RkButton style={styles.button} rkType='social'>
+              <RkText rkType='awesome hero accentColor'>{FontAwesome.twitter}</RkText>
+            </RkButton>
+            <RkButton style={styles.button} rkType='social'>
+              <RkText rkType='awesome hero accentColor'>{FontAwesome.google}</RkText>
+            </RkButton>
+            <RkButton style={styles.button} rkType='social'>
+              <RkText rkType='awesome hero accentColor'>{FontAwesome.facebook}</RkText>
+            </RkButton>
+          </View>
+          <RkTextInput
+            rkType='rounded'
+            placeholder='Username'
+            onChangeText={(text) => this.setState({username: text})}
+            value={this.state.username}
+          />
+          <RkTextInput
+           rkType='rounded'
+           placeholder='Password'
+           secureTextEntry
+           onChangeText={(text) => this.setState({password: text})}
+           value={this.state.password}
+         />
+         <RkButton style={styles.button} rkType='large' onPress={this.loginUser}>
+           <RkText>LOGIN</RkText>
+         </RkButton>
+         <View style={styles.footer}>
+            <View style={styles.textRow}>
+              <RkText rkType='primary3'>Don’t have an account?</RkText>
+              <RkButton rkType='clear'>
+                <RkText rkType='header6' onPress={this.onSignUpButtonPressed}>Sign up now</RkText>
+              </RkButton>
+            </View>
+          </View>
+        </View>
+      </RkAvoidKeyboard>
     );
   }
 }
 
-render = () => (
-  <RkAvoidKeyboard
-    onStartShouldSetResponder={() => true}
-    onResponderRelease={() => Keyboard.dismiss()}
-    style={styles.screen}>
-    {this.renderImage()}
-    <View style={styles.container}>
-      <View style={styles.buttons}>
-        <RkButton style={styles.button} rkType='social'>
-          <RkText rkType='awesome hero accentColor'>{FontAwesome.twitter}</RkText>
-        </RkButton>
-        <RkButton style={styles.button} rkType='social'>
-          <RkText rkType='awesome hero accentColor'>{FontAwesome.google}</RkText>
-        </RkButton>
-        <RkButton style={styles.button} rkType='social'>
-          <RkText rkType='awesome hero accentColor'>{FontAwesome.facebook}</RkText>
-        </RkButton>
-      </View>
-      <RkTextInput rkType='rounded' placeholder='Username' />
-      <RkTextInput rkType='rounded' placeholder='Password' secureTextEntry />
-      <GradientButton
-        style={styles.save}
-        rkType='large'
-        onPress={this.onLoginButtonPressed}
-        text='LOGIN'
-      />
-      <View style={styles.footer}>
-        <View style={styles.textRow}>
-          <RkText rkType='primary3'>Don’t have an account?</RkText>
-          <RkButton rkType='clear'>
-            <RkText rkType='header6' onPress={this.onSignUpButtonPressed}>Sign up now</RkText>
-          </RkButton>
-        </View>
-      </View>
-    </View>
-  </RkAvoidKeyboard>
-)
-}
-
-const styles = StyleSheet.create({
-  container: {
+const styles = RkStyleSheet.create(theme => ({
+  screen: {
     flex: 1,
     alignItems: 'center',
-    paddingBottom: '45%',
-    paddingTop: '20%'
+    backgroundColor: theme.colors.screen.base,
   },
-  heading: {
-    fontSize: 18,
-    flex: 1
+  image: {
+    resizeMode: 'cover',
+    marginBottom: scaleVertical(10),
   },
-  inputs: {
+  container: {
+    paddingHorizontal: 17,
+    paddingBottom: scaleVertical(22),
+    alignItems: 'center',
+    flex: -1,
+  },
+  footer: {
+    justifyContent: 'flex-end',
     flex: 1,
-    width: '80%',
-    padding: 10
   },
   buttons: {
-    marginTop: 15
+    flexDirection: 'row',
+    marginBottom: scaleVertical(24),
   },
-  labels: {
-    paddingBottom: 10
-  }
-});
+  button: {
+    marginHorizontal: 14,
+  },
+  save: {
+    marginVertical: 9,
+  },
+  textRow: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+}));
+
+export default Login;

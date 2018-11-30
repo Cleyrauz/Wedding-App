@@ -6,10 +6,16 @@
     "@expo/samples": "2.1.1",
     "babel-eslint": "^10.0.1",
     "expo": "^30.0.2",
+    "firebase": "^5.5.7",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
+    "react-native-svg": "^8.0.8",
     "react-native-ui-kitten": "^3.1.2",
-    "react-navigation": "^2.18.2"
+    "react-navigation": "^2.18.2",
+    "unstated": "^2.1.1",
+    "victory-native": "^31.0.0"
   },
   "scripts": {
     "start": "expo start",

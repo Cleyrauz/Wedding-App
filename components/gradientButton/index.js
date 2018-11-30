@@ -6,7 +6,7 @@ import {
   RkComponent,
 } from 'react-native-ui-kitten';
 
-export class GradientButton extends RkComponent {
+export default class GradientButton extends RkComponent {
   componentName = 'GradientButton';
   typeMapping = {
     button: {},
